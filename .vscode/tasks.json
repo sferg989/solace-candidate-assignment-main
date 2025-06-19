@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+      "type": "shell",
+      "command": "export NVM_DIR=\"$HOME/.nvm\" && source \"$NVM_DIR/nvm.sh\" && nvm use && npm run type-check && npm run lint && npm run test:coverage",
+      "problemMatcher": [],
+      "label": "npm: type-check and lint",
+      "detail": "Runs type-check and lint"
+    }
+	]
+}
