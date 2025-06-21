@@ -1,7 +1,7 @@
 import db from "../../../db";
 import { advocates } from "../../../db/schema";
 import { advocateSearchService } from "../../../db/services/advocate-search";
-import type { Advocate } from "../../../types";
+import type { Advocate, SortDirection } from "../../../types";
 
 export async function GET(request: Request): Promise<Response> {
   try {
@@ -13,7 +13,7 @@ export async function GET(request: Request): Promise<Response> {
     const { searchParams } = new URL(request.url);
     const searchQuery = searchParams.get('q');
     const orderBy = searchParams.get('orderBy') as keyof typeof advocates.$inferSelect | null;
-    const sortDirection = searchParams.get('sort') as "asc" | "desc" | null;
+    const sortDirection = searchParams.get('sort') as SortDirection | null;
 
     let data: Advocate[];
 

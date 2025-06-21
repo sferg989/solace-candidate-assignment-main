@@ -37,3 +37,15 @@ At this point I can confidently call this "A Project". It meets the baseline sta
   - Postgres NOTICE when doing short searches, like partial phone numbers, or partial names.  **TO DO**
   - Geo location search - get the user lat long from Cloudflare  worker. this would require adding the lat long to the data. then doing the Haversine formula. I have done geolocation search both ways. manually with the Haversine formula, and using a third party search service like Algolia
   - multiple order by clauses.
+
+  ##Table implementation. 
+   - formatting the phonenumber to make it look nice, but if you search a formatted phone number it does not work.  since it is not smart enough to hand the **() -**.
+   - Specialties - it would have been nice to add coloring coding for each specialties.  Or 
+   - Specialities - if you clicked on a specific value, it would filter all of the values by the selected, creating a multi selection view.
+   - Locked Table Headers - in both mobile, and desktop view.  The user looses sight of the column header.  😢
+   - Frozen columns.   - in both mobile, and desktop view.  The user looses sight of any specific column.  
+   - Row Selection - Make the row clickable to see the details.  
+   - Hide/Show columns on a per user basis.  Some users find the city data valuable, some will not.  
+   - Give the user to save specific views, and be able to return that view.  
+   
+
