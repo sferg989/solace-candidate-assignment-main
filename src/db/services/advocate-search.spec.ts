@@ -4,10 +4,11 @@ import {
   advocateSearchService, 
   buildFullTextSearchClause, 
   buildOrderClause,
-  type SortDirection,
   type AdvocateOrderableField 
 } from './advocate-search';
 import { advocates } from '../schema';
+import type { SortDirection } from '../../types';
+import { SORT_DIRECTIONS } from '../../types';
 
 // Mock the schema
 jest.mock('../schema', () => ({
@@ -92,14 +93,14 @@ describe('AdvocateSearchService', () => {
     });
 
     it('should build descending order clause when specified', () => {
-      const result = service.buildOrderClause('lastName', 'desc');
+      const result = service.buildOrderClause('lastName', SORT_DIRECTIONS.DESC);
 
       expect(mockDesc).toHaveBeenCalledWith(advocates.lastName);
       expect(result).toBe('DESC_RESULT');
     });
 
     it('should build ascending order clause when explicitly specified', () => {
-      const result = service.buildOrderClause('city', 'asc');
+      const result = service.buildOrderClause('city', SORT_DIRECTIONS.ASC);
 
       expect(mockAsc).toHaveBeenCalledWith(advocates.city);
       expect(result).toBe('ASC_RESULT');
@@ -117,7 +118,7 @@ describe('AdvocateSearchService', () => {
       ];
 
       validFields.forEach(field => {
-        service.buildOrderClause(field, 'asc');
+        service.buildOrderClause(field, SORT_DIRECTIONS.ASC);
         expect(mockAsc).toHaveBeenCalledWith(advocates[field]);
       });
     });
@@ -177,7 +178,7 @@ describe('Exported Functions', () => {
     });
 
     it('should delegate to service method with parameters', () => {
-      const result = buildOrderClause('lastName', 'desc');
+      const result = buildOrderClause('lastName', SORT_DIRECTIONS.DESC);
 
       expect(mockDesc).toHaveBeenCalledWith(advocates.lastName);
       expect(result).toBe('DESC_RESULT');
@@ -207,7 +208,7 @@ describe('Singleton Instance', () => {
 
 describe('Type Safety', () => {
   it('should enforce SortDirection type', () => {
-    const validDirections: SortDirection[] = ['asc', 'desc'];
+    const validDirections: SortDirection[] = [SORT_DIRECTIONS.ASC, SORT_DIRECTIONS.DESC];
     
     validDirections.forEach(direction => {
       expect(() => buildOrderClause('firstName', direction)).not.toThrow();
@@ -226,7 +227,7 @@ describe('Type Safety', () => {
     ];
 
     validFields.forEach(field => {
-      expect(() => buildOrderClause(field, 'asc')).not.toThrow();
+      expect(() => buildOrderClause(field, SORT_DIRECTIONS.ASC)).not.toThrow();
     });
   });
 }); 

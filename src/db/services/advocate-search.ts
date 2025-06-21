@@ -1,7 +1,7 @@
 import { sql, type SQL, asc, desc, type Column } from "drizzle-orm";
 import { advocates } from "../schema";
-
-export type SortDirection = "asc" | "desc";
+import type { SortDirection } from "../../types";
+import { SORT_DIRECTIONS } from "../../types";
 export type AdvocateOrderableField = keyof typeof advocates.$inferSelect;
 
 export class AdvocateSearchService {
@@ -25,7 +25,7 @@ export class AdvocateSearchService {
 
   public buildOrderClause(
     field: AdvocateOrderableField = "lastName",
-    direction: SortDirection = "asc"
+    direction: SortDirection = SORT_DIRECTIONS.ASC
   ): ReturnType<typeof asc | typeof desc> {
     const column = advocates[field] as Column;
     
@@ -33,7 +33,7 @@ export class AdvocateSearchService {
       throw new Error(`Invalid field for ordering: ${String(field)}`);
     }
 
-    return direction === "desc" ? desc(column) : asc(column);
+    return direction === SORT_DIRECTIONS.DESC ? desc(column) : asc(column);
   }
 
 }
